@@ -1,0 +1,17 @@
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\bin\Debug\net9.0-windows\MiprimeraApp.exe
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\bin\Debug\net9.0-windows\MiprimeraApp.deps.json
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\bin\Debug\net9.0-windows\MiprimeraApp.runtimeconfig.json
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\bin\Debug\net9.0-windows\MiprimeraApp.dll
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\bin\Debug\net9.0-windows\MiprimeraApp.pdb
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.Form1.resources
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.csproj.GenerateResource.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.AssemblyInfoInputs.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.AssemblyInfo.cs
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.csproj.CoreCompileInputs.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.sourcelink.json
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.dll
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\refint\MiprimeraApp.dll
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.pdb
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\MiprimeraApp.genruntimeconfig.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\MiprimeraApp\MiprimeraApp\MiprimeraApp\obj\Debug\net9.0-windows\ref\MiprimeraApp.dll
