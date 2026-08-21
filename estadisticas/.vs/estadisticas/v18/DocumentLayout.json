@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\segov\\source\\repos\\PrograI-Semi_2026\\estadisticas\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FD4672FD-A63D-432F-81AD-0D8B5CE9D2C7}|estadisticas\\estadisticas.csproj|c:\\users\\segov\\source\\repos\\prograi-semi_2026\\estadisticas\\estadisticas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FD4672FD-A63D-432F-81AD-0D8B5CE9D2C7}|estadisticas\\estadisticas.csproj|solutionrelative:estadisticas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FD4672FD-A63D-432F-81AD-0D8B5CE9D2C7}|estadisticas\\estadisticas.csproj|c:\\users\\segov\\source\\repos\\prograi-semi_2026\\estadisticas\\estadisticas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FD4672FD-A63D-432F-81AD-0D8B5CE9D2C7}|estadisticas\\estadisticas.csproj|solutionrelative:estadisticas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +18,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\segov\\source\\repos\\PrograI-Semi_2026\\estadisticas\\estadisticas\\Form1.cs",
+              "RelativeDocumentMoniker": "estadisticas\\Form1.cs",
+              "ToolTip": "C:\\Users\\segov\\source\\repos\\PrograI-Semi_2026\\estadisticas\\estadisticas\\Form1.cs",
+              "RelativeToolTip": "estadisticas\\Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T18:24:12.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\segov\\source\\repos\\PrograI-Semi_2026\\estadisticas\\estadisticas\\Form1.cs",
+              "RelativeDocumentMoniker": "estadisticas\\Form1.cs",
+              "ToolTip": "C:\\Users\\segov\\source\\repos\\PrograI-Semi_2026\\estadisticas\\estadisticas\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "estadisticas\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-21T18:24:03.68Z",
+              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         },

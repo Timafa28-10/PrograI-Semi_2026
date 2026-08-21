@@ -1,0 +1,10 @@
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\bin\Debug\estadisticas.exe.config
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\bin\Debug\estadisticas.exe
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\bin\Debug\estadisticas.pdb
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.csproj.AssemblyReference.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.Form1.resources
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.Properties.Resources.resources
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.csproj.GenerateResource.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.csproj.CoreCompileInputs.cache
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.exe
+C:\Users\segov\source\repos\PrograI-Semi_2026\estadisticas\estadisticas\obj\Debug\estadisticas.pdb
