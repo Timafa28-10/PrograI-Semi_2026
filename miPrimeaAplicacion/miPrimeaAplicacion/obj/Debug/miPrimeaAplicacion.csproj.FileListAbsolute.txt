@@ -26,3 +26,20 @@ D:\Users\Estudiante\Desktop\PrograI-Semi-2026\miPrimeaAplicacion\miPrimeaAplicac
 C:\Users\Luis Hernandez\Desktop\PrograI-Semi-2026\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frmPrincipal.resources
 C:\Users\Luis Hernandez\Desktop\PrograI-Semi-2026\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frmMaterias.resources
 C:\Users\Luis Hernandez\Desktop\PrograI-Semi-2026\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frmPeriodos.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\bin\Debug\db_academica.mdf
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\bin\Debug\db_academica_log.ldf
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\bin\Debug\miPrimeaAplicacion.exe.config
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\bin\Debug\miPrimeaAplicacion.exe
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\bin\Debug\miPrimeaAplicacion.pdb
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.csproj.AssemblyReference.cache
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.Form1.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frmMaterias.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frmPeriodos.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frmPrincipal.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.frm_usuario.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.login.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.Properties.Resources.resources
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.csproj.GenerateResource.cache
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.csproj.CoreCompileInputs.cache
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.exe
+C:\Users\segov\Documents\PrograI-Semi-2026_parcial2\miPrimeaAplicacion\miPrimeaAplicacion\obj\Debug\miPrimeaAplicacion.pdb

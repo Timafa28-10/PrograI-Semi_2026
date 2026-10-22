@@ -42,5 +42,12 @@ namespace miPrimeaAplicacion
             objPeriodo.MdiParent = this;
             objPeriodo.Show();
         }
+
+        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frm_usuario objFrm = new frm_usuario();
+            objFrm.MdiParent = this;
+            objFrm.Show();
+        }
     }
 }

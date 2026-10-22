@@ -7,20 +7,24 @@ using System.Threading.Tasks;
 using System.Data; //Esta libreria es para usar bases de datos
 using System.Data.SqlClient; //Esta libreria permite usar SQLServer
 
-namespace miPrimeaAplicacion {
-    internal class Conexion {
+namespace miPrimeaAplicacion
+{
+    internal class Conexion
+    {
         //Definir los miembros, atributos y metodos de la clase
         public SqlConnection objConexion = new SqlConnection(); //Conectarme a la BD
         public SqlCommand objComando = new SqlCommand(); //Ejecutar consultas (Insert, update, delete, select) SQL en la BD
         public SqlDataAdapter objDataAdapter = new SqlDataAdapter();//un puente entre la BD y la aplicacion.
         DataSet objDs = new DataSet(); //Representa una copia en memoria de la arquitectura de la BD
 
-        public Conexion() {//Constructor e inicializador de los miembros de la clase
+        public Conexion()
+        {//Constructor e inicializador de los miembros de la clase
             String cadenaCoenxion = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\db_academica.mdf;Integrated Security=True";
             objConexion.ConnectionString = cadenaCoenxion;
             objConexion.Open(); //abrir la BD
         }
-        public DataSet obtenerDatos() {
+        public DataSet obtenerDatos()
+        {
             objDs.Clear();//Limpiar el datase.
             objComando.Connection = objConexion;//Establcer la conexion para ejecutar consultas a la BD
 
@@ -32,28 +36,59 @@ namespace miPrimeaAplicacion {
             objComando.CommandText = "SELECT * FROM materias";
             objDataAdapter.Fill(objDs, "materias");
 
+            objComando.CommandText = "SELECT * FROM usuarios_USSS089026";
+            objDataAdapter.Fill(objDs, "usuarios");
+
             return objDs;
         }
         public string administrarDatosAlumnos(String[] datos, String accion)
         {
             String sql = "";
-            if (accion == "nuevo"){
+            if (accion == "nuevo")
+            {
                 sql = "INSERT INTO alumnos(codigo,nombre,direccion,telefono,email) VALUES ('" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" + datos[4] + "', '" + datos[5] + "')";
-            }else if (accion == "modificar"){
+            }
+            else if (accion == "modificar")
+            {
                 sql = "UPDATE alumnos SET codigo='" + datos[1] + "', nombre='" + datos[2] + "', direccion='" + datos[3] + "', telefono='" + datos[4] + "', email='" + datos[5] + "' WHERE idAlumno='" + datos[0] + "'";
-            }else if (accion == "eliminar"){
+            }
+            else if (accion == "eliminar")
+            {
                 sql = "DELETE FROM alumnos WHERE idAlumno='" + datos[0] + "'";
             }
             return ejecutarSQL(sql);
         }
-        public string administrarDatosMaterias(String[] datos, String accion){
+        public string administrarDatosMaterias(String[] datos, String accion)
+        {
             String sql = "";
-            if (accion == "nuevo"){
+            if (accion == "nuevo")
+            {
                 sql = "INSERT INTO materias(codigo,nombre,uv) VALUES ('" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "')";
-            }else if (accion == "modificar"){
+            }
+            else if (accion == "modificar")
+            {
                 sql = "UPDATE materias SET codigo='" + datos[1] + "', nombre='" + datos[2] + "', uv='" + datos[3] + "' WHERE idMateria='" + datos[0] + "'";
-            }else if (accion == "eliminar"){
+            }
+            else if (accion == "eliminar")
+            {
                 sql = "DELETE FROM materias WHERE idMateria='" + datos[0] + "'";
+            }
+            return ejecutarSQL(sql);
+        }
+        public string mantenimiento_usuarios_USSS089026(String[] datos, String accion)
+        {
+            String sql = "";
+            if (accion == "nuevo")
+            {
+                sql = "INSERT INTO usuarios_USSS089026(usuario,clave,nombre,[dirección],telefono) VALUES ('" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" + datos[4] + "', '" + datos[5] + "')";
+            }
+            else if (accion == "modificar")
+            {
+                sql = "UPDATE usuarios_USSS089026 SET usuario='" + datos[1] + "', clave='" + datos[2] + "', nombre='" + datos[3] + "', [dirección]='" + datos[4] + "', telefono='" + datos[5] + "' WHERE idUsuario='" + datos[0] + "'";
+            }
+            else if (accion == "eliminar")
+            {
+                sql = "DELETE FROM usuarios_USSS089026 WHERE idUsuario='" + datos[0] + "'";
             }
             return ejecutarSQL(sql);
         }
