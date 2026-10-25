@@ -1,0 +1,44 @@
+@* Plantilla 4: Mi perfil del candidato (menú azul, fondo celeste). *@
+@{
+    var activo = ViewData["Activo"] as string ?? "perfil";
+    var nombre = User.Identity?.Name ?? "";
+    var items = new List<(string Clave, string Texto, string Icono, string Accion)>
+    {
+        ("inicio", "Inicio", "bi-house-door-fill", "Inicio"),
+        ("ofertas", "Ofertas de empleo", "bi-journal-bookmark-fill", "Ofertas"),
+        ("postulaciones", "Postulaciones", "bi-file-earmark-text-fill", "Postulaciones"),
+        ("perfil", "Mi perfil", "bi-person-fill", "Perfil")
+    };
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <partial name="_Head" />
+</head>
+<body class="perfil">
+<div class="pf-shell">
+    <aside class="pf-side">
+        <a class="pf-brand" asp-controller="Home" asp-action="Index"><i class="bi bi-people-fill"></i><span>ConectaRH</span></a>
+        <nav class="pf-menu">
+            @foreach (var it in items)
+            {
+                <a class="pf-item @(activo == it.Clave ? "active" : "")" asp-controller="Candidato" asp-action="@it.Accion">
+                    <i class="bi @it.Icono"></i><span>@it.Texto</span>
+                </a>
+            }
+        </nav>
+    </aside>
+    <main class="pf-main">
+        <div class="pf-top">
+            <form asp-controller="Cuenta" asp-action="Salir" method="post" class="pf-user" title="Cerrar sesión">
+                <span class="pf-user-dot"></span>
+                <button type="submit"><span>@nombre</span><i class="bi bi-arrow-right"></i></button>
+            </form>
+        </div>
+        <partial name="_Mensajes" />
+        @RenderBody()
+    </main>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

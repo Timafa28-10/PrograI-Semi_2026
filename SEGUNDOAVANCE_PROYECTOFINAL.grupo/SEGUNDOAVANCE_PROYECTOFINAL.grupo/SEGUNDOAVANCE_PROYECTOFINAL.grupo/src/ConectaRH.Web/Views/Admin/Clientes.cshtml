@@ -1,0 +1,58 @@
+@* Plantilla 6: Gestión de clientes (empresas registradas) *@
+@model List<Empresa>
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Gestión de clientes";
+    ViewData["Icono"] = "bi-people-fill";
+    ViewData["Activo"] = "clientes";
+    ViewData["Variante"] = "a";
+    string Iniciales(string n) => string.Concat(n.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(p => char.ToUpper(p[0])));
+}
+<section class="adm-card adm-intro">
+    <span class="adm-intro-ico"><i class="bi bi-people-fill"></i></span>
+    <div class="adm-intro-body">
+        <h2>Clientes de la empresa</h2>
+        <p>Administra y gestiona la información de tus clientes.</p>
+        <form method="get" class="adm-searchrow">
+            <label class="adm-search"><i class="bi bi-search"></i><input name="q" value="@ViewBag.Q" placeholder="Buscar cliente..." /></label>
+            <a class="adm-btn" asp-action="NuevoUsuario" asp-route-tipo="empresa"><i class="bi bi-plus-lg"></i> Agregar cliente</a>
+        </form>
+    </div>
+</section>
+
+<section class="adm-card adm-tablecard">
+    <table class="adm-table">
+        <thead><tr><th>Cliente</th><th>Correo electrónico</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>
+        @foreach (var e in Model)
+        {
+            var activo = e.Usuario.Estado == EstadosUsuario.Activo;
+            <tr>
+                <td>
+                    <div class="adm-person">
+                        <span class="adm-ini">@Iniciales(e.NombreEmpresa)</span>
+                        <div><strong>@e.NombreEmpresa</strong><small>Cliente</small></div>
+                    </div>
+                </td>
+                <td>@e.Usuario.Correo</td>
+                <td>@(string.IsNullOrWhiteSpace(e.Telefono) ? "—" : e.Telefono)</td>
+                <td><span class="adm-pill @(activo ? "ok" : "warn")">@(activo ? "Activo" : "Inactivo")</span></td>
+                <td>
+                    <details class="adm-actions">
+                        <summary><i class="bi bi-three-dots-vertical"></i></summary>
+                        <div>
+                            <a asp-action="PerfilUsuario" asp-route-id="@e.IdUsuario">Ver perfil</a>
+                            <a asp-action="Configuracion" asp-route-id="@e.IdEmpresa">Configuración</a>
+                            <form asp-action="CambiarEstadoUsuario" asp-route-id="@e.IdUsuario" method="post"><button>@(activo ? "Desactivar" : "Activar")</button></form>
+                        </div>
+                    </details>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="5" class="adm-empty">No hay clientes registrados.</td></tr>
+        }
+        </tbody>
+    </table>
+</section>

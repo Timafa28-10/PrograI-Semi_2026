@@ -1,0 +1,38 @@
+@* Plantilla 8 *@
+@model OfertaEmpleo
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = "Postular a oferta";
+    ViewData["Activo"] = "ofertas";
+}
+<section class="po-card">
+    <h1>Postular a oferta</h1>
+    <p class="po-oferta">@Model.Titulo · @Model.Empresa.NombreEmpresa</p>
+
+    <div class="po-steps">
+        <div class="po-line"></div>
+        <span class="po-step active">1</span>
+        <span class="po-step">2</span>
+        <span class="po-step">3</span>
+    </div>
+    <div class="po-step-labels">
+        <span class="l1">Datod adicionales</span>
+        <span class="l2">CV</span>
+        <span class="l3">Configuracion</span>
+    </div>
+
+    <form method="post" asp-controller="Ofertas" asp-action="Postular" asp-route-id="@Model.IdOferta" enctype="multipart/form-data">
+        <h3>Adjunta tu CV</h3>
+        <label class="po-drop" id="po-drop">
+            <input type="file" name="cv" id="po-file" accept=".pdf,.doc,.docx" hidden />
+            <i class="bi bi-cloud-arrow-up"></i>
+            <strong>Arrastra tu archivo o selecciona</strong>
+            <small id="po-nombre">PDF, DOC, o DOCX, 3HD</small>
+        </label>
+
+        <h3>Mensaje adicional</h3>
+        <textarea name="mensaje" maxlength="500" placeholder="Escribe un mensaje"></textarea>
+
+        <button type="submit" class="po-submit">Enviar postulacion</button>
+    </form>
+</section>

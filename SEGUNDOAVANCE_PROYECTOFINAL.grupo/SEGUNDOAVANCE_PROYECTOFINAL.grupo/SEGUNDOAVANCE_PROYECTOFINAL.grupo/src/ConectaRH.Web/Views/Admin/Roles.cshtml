@@ -1,0 +1,47 @@
+@* Plantilla 11: Roles y permisos *@
+@model List<(Rol Rol, int Usuarios)>
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Roles y permisos";
+    ViewData["Icono"] = "bi-shield-lock-fill";
+    ViewData["Activo"] = "usuarios";
+    ViewData["Variante"] = "b";
+    string Icono(string r) => r switch { "administrador" => "bi-gem", "empresa" => "bi-shield-fill-check", _ => "bi-person-fill" };
+    string Etiqueta(string rol) => char.ToUpper(rol[0]) + rol[1..];
+}
+<section class="adm-panel">
+    <h2>Roles y permisos</h2>
+    <form method="get" class="adm-searchrow">
+        <label class="adm-search"><i class="bi bi-search"></i><input name="q" value="@ViewBag.Q" placeholder="Buscar rol..." /></label>
+        <button type="button" class="adm-btn" disabled title="Los roles del sistema son fijos: candidato, empresa y administrador"><i class="bi bi-plus-lg"></i> Crear rol</button>
+    </form>
+
+    <table class="adm-table">
+        <thead><tr><th>Rol</th><th>Descripción</th><th>Permisos</th><th>Acciones</th></tr></thead>
+        <tbody>
+        @foreach (var (rol, usuarios) in Model)
+        {
+            <tr>
+                <td>
+                    <div class="adm-person">
+                        <span class="adm-roleico"><i class="bi @Icono(rol.NombreRol)"></i></span>
+                        <strong>@Etiqueta(rol.NombreRol)</strong>
+                    </div>
+                </td>
+                <td class="adm-desc">@rol.DescripcionPermisos</td>
+                <td><span class="adm-pill rol">@usuarios @(usuarios == 1 ? "usuario" : "usuarios")</span></td>
+                <td>
+                    <details class="adm-actions">
+                        <summary><i class="bi bi-three-dots-vertical"></i></summary>
+                        <div><a asp-action="Usuarios" asp-route-rol="@rol.NombreRol">Ver usuarios</a></div>
+                    </details>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="4" class="adm-empty">No se encontraron roles.</td></tr>
+        }
+        </tbody>
+    </table>
+</section>

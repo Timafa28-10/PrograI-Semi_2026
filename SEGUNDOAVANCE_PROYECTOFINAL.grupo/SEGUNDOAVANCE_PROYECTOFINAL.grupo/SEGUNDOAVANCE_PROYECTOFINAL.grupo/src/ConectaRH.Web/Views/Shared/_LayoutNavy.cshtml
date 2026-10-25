@@ -1,0 +1,49 @@
+@* Plantillas 5, 7 y 8: menú lateral azul marino. El menú cambia según el rol (candidato / empresa). *@
+@{
+    var activo = ViewData["Activo"] as string ?? "";
+    var esEmpresa = User.IsInRole("empresa");
+    var items = esEmpresa
+        ? new List<(string Clave, string Texto, string Icono, string Ctrl, string Accion)>
+        {
+            ("inicio", "Inicio", "bi-house-door", "Empresa", "Inicio"),
+            ("publicar", "Publicar oferta", "bi-briefcase-fill", "Empresa", "PublicarOferta"),
+            ("postulaciones", "Postulaciones", "bi-clipboard-check", "Empresa", "Postulaciones"),
+            ("empresa", "Mi empresa", "bi-person-vcard", "Empresa", "MiEmpresa")
+        }
+        : new List<(string Clave, string Texto, string Icono, string Ctrl, string Accion)>
+        {
+            ("inicio", "Inicio", "bi-house-door", "Candidato", "Inicio"),
+            ("ofertas", "Ofertas de empleo", "bi-briefcase-fill", "Candidato", "Ofertas"),
+            ("postulaciones", "Postulaciones", "bi-clipboard-check", "Candidato", "Postulaciones"),
+            ("perfil", "Mi perfil", "bi-person-vcard", "Candidato", "Perfil")
+        };
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <partial name="_Head" />
+</head>
+<body class="navy">
+<div class="nv-shell">
+    <aside class="nv-side">
+        <a class="nv-brand" asp-controller="Home" asp-action="Index"><i class="bi bi-people-fill"></i><span>ConectaRH</span></a>
+        <nav class="nv-menu">
+            @foreach (var it in items)
+            {
+                <a class="nv-item @(activo == it.Clave ? "active" : "")" asp-controller="@it.Ctrl" asp-action="@it.Accion">
+                    <i class="bi @it.Icono"></i><span>@it.Texto</span>
+                </a>
+            }
+        </nav>
+        <form class="nv-salir" asp-controller="Cuenta" asp-action="Salir" method="post">
+            <button type="submit"><i class="bi bi-box-arrow-left"></i><span>Cerrar sesión</span></button>
+        </form>
+    </aside>
+    <main class="nv-main">
+        <partial name="_Mensajes" />
+        @RenderBody()
+    </main>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+@model OfertaModel
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = "Publicar oferta";
+    ViewData["Activo"] = "publicar";
+}
+<div class="nv-card">
+    <h2 class="nv-h2">Publicar oferta</h2>
+    <form method="post" asp-action="PublicarOferta" class="nv-form">
+        <label>Título del puesto<input name="Titulo" value="@Model.Titulo" maxlength="150" required /></label>
+        <label>Descripción del empleo<textarea name="Descripcion" rows="4" required>@Model.Descripcion</textarea></label>
+        <label>Requisitos del puesto (uno por línea)<textarea name="Requisitos" rows="4" required>@Model.Requisitos</textarea></label>
+        <label>Ubicación<input name="Ubicacion" value="@Model.Ubicacion" maxlength="150" /></label>
+        <label>Fecha límite para postularse<input name="FechaCierre" type="date" value="@(Model.FechaCierre?.ToString("yyyy-MM-dd"))" /></label>
+        <div class="nv-actions">
+            <button class="em-btn" type="submit">Publicar</button>
+            <a class="nv-link" asp-action="Inicio">Cancelar</a>
+        </div>
+    </form>
+</div>

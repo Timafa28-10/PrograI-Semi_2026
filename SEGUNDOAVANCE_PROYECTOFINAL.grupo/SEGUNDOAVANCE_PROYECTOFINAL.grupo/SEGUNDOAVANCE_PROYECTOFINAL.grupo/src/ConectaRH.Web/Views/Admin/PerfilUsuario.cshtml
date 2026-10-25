@@ -1,0 +1,93 @@
+@* Plantilla 9: Perfil de usuario *@
+@model Usuario
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Perfil de empleado";
+    ViewData["Icono"] = "bi-person-vcard-fill";
+    ViewData["Activo"] = "usuarios";
+    ViewData["Variante"] = "b";
+    var tab = (string)ViewBag.Tab;
+    var activo = Model.Estado == EstadosUsuario.Activo;
+    var rolTexto = char.ToUpper(Model.Rol.NombreRol[0]) + Model.Rol.NombreRol[1..];
+    var telefono = Model.Candidato?.Telefono ?? Model.Empresa?.Telefono;
+    var ubicacion = Model.Candidato?.Direccion ?? Model.Empresa?.Direccion;
+    var descripcion = Model.Empresa?.Descripcion ?? Model.Candidato?.ResumenProfesional;
+    var postulaciones = ViewBag.Postulaciones as List<Postulacion>;
+    var ofertas = ViewBag.Ofertas as List<OfertaEmpleo>;
+}
+<section class="adm-panel adm-profile">
+    <div class="adm-profile-top">
+        <span class="adm-bigavatar"><i class="bi bi-person-fill"></i></span>
+        <div>
+            <h2>@Model.NombreUsuario</h2>
+            <p class="adm-role">@rolTexto</p>
+            <p><i class="bi bi-envelope-fill"></i> @Model.Correo</p>
+            <p><i class="bi bi-telephone-fill"></i> @(string.IsNullOrWhiteSpace(telefono) ? "—" : telefono)</p>
+            <p><i class="bi bi-geo-alt-fill"></i> @(string.IsNullOrWhiteSpace(ubicacion) ? "—" : ubicacion)</p>
+            @if (Model.Empresa != null)
+            {
+                <a class="adm-btn" asp-action="Configuracion" asp-route-id="@Model.Empresa.IdEmpresa" asp-route-editar="true">Editar perfil</a>
+            }
+            else
+            {
+                <form asp-action="CambiarEstadoUsuario" asp-route-id="@Model.IdUsuario" method="post" class="adm-inline">
+                    <button class="adm-btn">@(activo ? "Desactivar cuenta" : "Activar cuenta")</button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <nav class="adm-tabs">
+        <a class="@(tab == "general" ? "active" : "")" asp-action="PerfilUsuario" asp-route-id="@Model.IdUsuario" asp-route-tab="general">Información general</a>
+        <a class="@(tab == "actividad" ? "active" : "")" asp-action="PerfilUsuario" asp-route-id="@Model.IdUsuario" asp-route-tab="actividad">Actividad</a>
+        <a class="@(tab == "configuracion" ? "active" : "")" asp-action="PerfilUsuario" asp-route-id="@Model.IdUsuario" asp-route-tab="configuracion">Configuración</a>
+    </nav>
+
+    <div class="adm-subcard">
+        @if (tab == "general")
+        {
+            <h3>Información general</h3>
+            <p>@(string.IsNullOrWhiteSpace(descripcion) ? "Cuenta registrada en ConectaRH con acceso según su rol." : descripcion)</p>
+            <div class="adm-facts">
+                <div><i class="bi bi-people-fill"></i><span><small>Rol</small>@rolTexto</span></div>
+                <div><i class="bi bi-calendar-check-fill"></i><span><small>Fecha de registro</small>@Model.FechaRegistro.ToString("dd MMM. yyyy")</span></div>
+            </div>
+        }
+        else if (tab == "actividad")
+        {
+            <h3>Actividad</h3>
+            @if (postulaciones != null)
+            {
+                <p>Postulaciones realizadas: <b>@postulaciones.Count</b></p>
+                <ul class="adm-ul">
+                    @foreach (var p in postulaciones.Take(8))
+                    {
+                        <li>@p.Oferta.Titulo – @p.Oferta.Empresa.NombreEmpresa <span class="adm-pill rol">@p.Estado</span></li>
+                    }
+                </ul>
+            }
+            else if (ofertas != null)
+            {
+                <p>Ofertas publicadas: <b>@ofertas.Count</b></p>
+                <ul class="adm-ul">
+                    @foreach (var o in ofertas.Take(8))
+                    {
+                        <li>@o.Titulo <span class="adm-pill rol">@o.Estado</span> · @o.Postulaciones.Count postulaciones</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Cuenta de administración: sin actividad de reclutamiento.</p>
+            }
+        }
+        else
+        {
+            <h3>Configuración</h3>
+            <p>Estado de la cuenta: <span class="adm-pill @(activo ? "ok" : "warn")">@(activo ? "Activo" : "Inactivo")</span></p>
+            <form asp-action="CambiarEstadoUsuario" asp-route-id="@Model.IdUsuario" method="post">
+                <button class="adm-btn">@(activo ? "Desactivar cuenta" : "Activar cuenta")</button>
+            </form>
+        }
+    </div>
+</section>

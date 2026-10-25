@@ -1,0 +1,52 @@
+@* Plantilla 3 *@
+@model RegistroModel
+@{
+    ViewData["Title"] = "Crear cuenta";
+    ViewData["BodyClass"] = "registro";
+}
+<header class="rg-top">
+    <a class="rg-logo" asp-controller="Home" asp-action="Index"><i class="bi bi-people-fill"></i><span>Conecta<b>RH</b></span></a>
+</header>
+
+<section class="rg-box">
+    <h1>CREAR CUENTA</h1>
+    <p class="rg-label-tipo">Selecciona el tipo de usuario:</p>
+
+    <form method="post" asp-controller="Cuenta" asp-action="Registro" novalidate>
+        <div class="rg-tipos">
+            <label class="rg-tipo">
+                <input type="radio" name="TipoUsuario" value="candidato" @(Model.TipoUsuario == "candidato" ? "checked" : "") />
+                <span class="rg-card">
+                    <i class="bi bi-person-fill"></i>
+                    <strong>Soy candidato</strong>
+                    <small>Busca y postúlate a ofertas de empleo</small>
+                </span>
+            </label>
+            <label class="rg-tipo">
+                <input type="radio" name="TipoUsuario" value="empresa" @(Model.TipoUsuario == "empresa" ? "checked" : "") />
+                <span class="rg-card">
+                    <i class="bi bi-buildings-fill"></i>
+                    <strong>Soy empresa</strong>
+                    <small>Pública vacantes y encuentra talento</small>
+                </span>
+            </label>
+        </div>
+
+        <partial name="_Mensajes" />
+
+        <label class="rg-label" for="NombreCompleto">Nombre completo</label>
+        <input class="rg-input" id="NombreCompleto" name="NombreCompleto" value="@Model.NombreCompleto" placeholder="Ejemplo: Ana López García" maxlength="100" required />
+
+        <label class="rg-label" for="Correo">Correro Electrónico</label>
+        <input class="rg-input" id="Correo" name="Correo" type="email" value="@Model.Correo" placeholder="Ejemplo: Usuario@correo.com" maxlength="150" required />
+
+        <label class="rg-label" for="Contrasena">Contraseña</label>
+        <div class="pw-wrap rg-pw">
+            <input class="rg-input" id="Contrasena" name="Contrasena" type="password" placeholder="Mínimo 8 caracteres" minlength="8" autocomplete="new-password" required />
+            <button type="button" class="pw-toggle" data-toggle-password="Contrasena" aria-label="Mostrar contraseña"><i class="bi bi-eye-slash-fill"></i></button>
+        </div>
+
+        <button type="submit" class="rg-submit">Crear cuenta</button>
+        <p class="rg-foot">¿Ya tienes cuenta? <a asp-controller="Cuenta" asp-action="Login">Iniciar sesión</a></p>
+    </form>
+</section>

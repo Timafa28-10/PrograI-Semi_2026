@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <partial name="_Head" />
+</head>
+<body class="@(ViewData["BodyClass"] ?? "")">
+    @RenderBody()
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

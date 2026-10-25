@@ -1,0 +1,17 @@
+@if (TempData["Ok"] is string ok)
+{
+    <div class="alerta alerta-ok">@ok</div>
+}
+@if (TempData["Error"] is string er)
+{
+    <div class="alerta alerta-error">@er</div>
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alerta alerta-error">
+        @foreach (var e in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <div>@e.ErrorMessage</div>
+        }
+    </div>
+}

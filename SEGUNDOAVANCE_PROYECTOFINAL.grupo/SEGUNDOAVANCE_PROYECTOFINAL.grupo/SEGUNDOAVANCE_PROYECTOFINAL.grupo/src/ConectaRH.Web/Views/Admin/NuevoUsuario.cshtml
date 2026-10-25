@@ -1,0 +1,27 @@
+@model RegistroModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Agregar usuario";
+    ViewData["Icono"] = "bi-person-plus-fill";
+    ViewData["Activo"] = "usuarios";
+    ViewData["Variante"] = "b";
+}
+<section class="adm-panel">
+    <h2>Agregar usuario</h2>
+    <form method="post" asp-action="NuevoUsuario" class="adm-form">
+        <label>Tipo de usuario
+            <select name="TipoUsuario">
+                <option value="candidato" selected="@(Model.TipoUsuario == "candidato")">Candidato</option>
+                <option value="empresa" selected="@(Model.TipoUsuario == "empresa")">Empresa</option>
+                <option value="administrador" selected="@(Model.TipoUsuario == "administrador")">Administrador</option>
+            </select>
+        </label>
+        <label>Nombre<input name="NombreCompleto" value="@Model.NombreCompleto" maxlength="100" required /></label>
+        <label>Correo electrónico<input name="Correo" type="email" value="@Model.Correo" maxlength="150" required /></label>
+        <label>Contraseña (mínimo 8 caracteres)<input name="Contrasena" type="password" minlength="8" required /></label>
+        <div class="adm-form-actions">
+            <button class="adm-btn" type="submit">Crear usuario</button>
+            <a asp-action="Usuarios">Cancelar</a>
+        </div>
+    </form>
+</section>

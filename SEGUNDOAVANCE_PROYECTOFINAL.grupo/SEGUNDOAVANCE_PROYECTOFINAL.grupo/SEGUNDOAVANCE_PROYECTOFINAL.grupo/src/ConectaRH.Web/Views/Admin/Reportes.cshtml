@@ -1,0 +1,23 @@
+@model ResumenReportes
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Reportes";
+    ViewData["Icono"] = "bi-bar-chart-fill";
+    ViewData["Activo"] = "reportes";
+    ViewData["Variante"] = "b";
+}
+<section class="adm-panel">
+    <h2>Reportes</h2>
+    <div class="adm-tiles">
+        <div class="adm-tile static"><strong>@Model.TotalUsuarios</strong><span>Usuarios</span></div>
+        <div class="adm-tile static"><strong>@Model.Candidatos</strong><span>Candidatos</span></div>
+        <div class="adm-tile static"><strong>@Model.Empresas</strong><span>Empresas</span></div>
+        <div class="adm-tile static"><strong>@Model.Administradores</strong><span>Administradores</span></div>
+        <div class="adm-tile static"><strong>@Model.OfertasPublicadas</strong><span>Ofertas publicadas</span></div>
+        <div class="adm-tile static"><strong>@Model.OfertasPausadas</strong><span>Ofertas pausadas</span></div>
+        <div class="adm-tile static"><strong>@Model.OfertasCerradas</strong><span>Ofertas cerradas</span></div>
+        <div class="adm-tile static"><strong>@Model.Postulaciones</strong><span>Postulaciones</span></div>
+        <div class="adm-tile static"><strong>@Model.PostulacionesPendientes</strong><span>Pendientes</span></div>
+        <div class="adm-tile static"><strong>@Model.PostulacionesAceptadas</strong><span>Aceptadas</span></div>
+    </div>
+</section>

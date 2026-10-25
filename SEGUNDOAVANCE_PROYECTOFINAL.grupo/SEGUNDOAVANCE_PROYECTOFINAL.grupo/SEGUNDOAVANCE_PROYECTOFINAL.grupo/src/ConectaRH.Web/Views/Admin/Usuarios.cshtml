@@ -1,0 +1,53 @@
+@* Plantilla 10: Lista de usuarios *@
+@model List<Usuario>
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Lista de empleados";
+    ViewData["Icono"] = "bi-person-lines-fill";
+    ViewData["Activo"] = "usuarios";
+    ViewData["Variante"] = "b";
+    string Iniciales(string n) => string.Concat(n.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(p => char.ToUpper(p[0])));
+    string Etiqueta(string rol) => char.ToUpper(rol[0]) + rol[1..];
+}
+<section class="adm-panel">
+    <h2>Empleados de la empresa</h2>
+    <form method="get" class="adm-searchrow">
+        <label class="adm-search"><i class="bi bi-search"></i><input name="q" value="@ViewBag.Q" placeholder="Buscar empleado..." /></label>
+        <a class="adm-btn" asp-action="NuevoUsuario"><i class="bi bi-plus-lg"></i> Agregar empleado</a>
+    </form>
+    <p class="adm-sublink"><a asp-action="Roles"><i class="bi bi-shield-lock"></i> Roles y permisos</a></p>
+
+    <table class="adm-table">
+        <thead><tr><th>Nombre</th><th>Correo electrónico</th><th>Rol</th><th>Estado</th><th>Acciones</th></tr></thead>
+        <tbody>
+        @foreach (var u in Model)
+        {
+            var activo = u.Estado == EstadosUsuario.Activo;
+            <tr>
+                <td>
+                    <div class="adm-person">
+                        <span class="adm-ini">@Iniciales(u.NombreUsuario)</span>
+                        <div><strong>@u.NombreUsuario</strong><small>@u.NombreUsuario</small></div>
+                    </div>
+                </td>
+                <td>@u.Correo</td>
+                <td><span class="adm-pill rol">@Etiqueta(u.Rol.NombreRol)</span></td>
+                <td><span class="adm-pill @(activo ? "ok" : "warn")">@(activo ? "Activo" : "Inactivo")</span></td>
+                <td>
+                    <details class="adm-actions">
+                        <summary><i class="bi bi-three-dots-vertical"></i></summary>
+                        <div>
+                            <a asp-action="PerfilUsuario" asp-route-id="@u.IdUsuario">Ver perfil</a>
+                            <form asp-action="CambiarEstadoUsuario" asp-route-id="@u.IdUsuario" asp-route-volver="usuarios" method="post"><button>@(activo ? "Desactivar" : "Activar")</button></form>
+                        </div>
+                    </details>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="5" class="adm-empty">No se encontraron usuarios.</td></tr>
+        }
+        </tbody>
+    </table>
+</section>

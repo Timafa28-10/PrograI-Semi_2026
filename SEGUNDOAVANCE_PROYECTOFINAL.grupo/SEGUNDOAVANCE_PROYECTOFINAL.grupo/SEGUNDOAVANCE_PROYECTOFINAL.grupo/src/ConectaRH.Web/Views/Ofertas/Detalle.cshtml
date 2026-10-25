@@ -1,0 +1,58 @@
+@* Plantilla 7 *@
+@model OfertaEmpleo
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = Model.Titulo;
+    var esCandidato = (bool)ViewBag.EsCandidato;
+    var yaPostulado = (bool)ViewBag.YaPostulado;
+    ViewData["Activo"] = esCandidato ? "ofertas" : "inicio";
+    var requisitos = Model.Requisitos.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+}
+<a class="dt-back" asp-controller="@(esCandidato ? "Candidato" : "Empresa")" asp-action="@(esCandidato ? "Ofertas" : "Inicio")"><i class="bi bi-arrow-left"></i> Volver a ofertas</a>
+
+<section class="dt-card">
+    <div class="dt-head">
+        <span class="dt-ico"><i class="bi bi-buildings-fill"></i></span>
+        <div>
+            <h1>@Model.Titulo</h1>
+            <span class="dt-empresa">@Model.Empresa.NombreEmpresa</span>
+        </div>
+    </div>
+
+    <div class="dt-chips">
+        <span class="dt-chip"><i class="bi bi-briefcase"></i> @Model.Estado</span>
+        <span class="dt-chip"><i class="bi bi-calendar-event"></i> @(Model.FechaCierre.HasValue ? "Cierra: " + Model.FechaCierre.Value.ToString("dd/MM/yyyy") : "Sin fecha de cierre")</span>
+        <span class="dt-chip"><i class="bi bi-geo-alt"></i> @(string.IsNullOrWhiteSpace(Model.Ubicacion) ? "Ubicacion" : Model.Ubicacion)</span>
+    </div>
+
+    @if (esCandidato)
+    {
+        if (yaPostulado)
+        {
+            <span class="dt-btn disabled">Ya te postulaste</span>
+        }
+        else if (Model.Estado == EstadosOferta.Publicada)
+        {
+            <a class="dt-btn" asp-controller="Ofertas" asp-action="Postular" asp-route-id="@Model.IdOferta">Postularme</a>
+        }
+        else
+        {
+            <span class="dt-btn disabled">Oferta no disponible</span>
+        }
+    }
+
+    <h3>Descripción del puesto</h3>
+    <p class="dt-text">@Model.Descripcion</p>
+
+    <h3>Requisitos del puesto</h3>
+    <ul class="dt-list">
+        @foreach (var r in requisitos)
+        {
+            <li>@r.TrimStart('-', '•', '*', ' ')</li>
+        }
+    </ul>
+
+    <h3 class="dt-small">Condiciones</h3>
+    <p class="dt-cond"><i class="bi bi-calendar3"></i> Publicada el @Model.FechaPublicacion.ToString("dd/MM/yyyy")</p>
+    <p class="dt-cond"><i class="bi bi-briefcase"></i> Estado: @Model.Estado</p>
+</section>

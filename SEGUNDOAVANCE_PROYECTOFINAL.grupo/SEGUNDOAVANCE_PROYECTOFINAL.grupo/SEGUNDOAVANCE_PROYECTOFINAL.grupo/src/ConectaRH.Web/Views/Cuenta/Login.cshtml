@@ -1,0 +1,59 @@
+@* Plantilla 2 *@
+@model LoginModel
+@{
+    ViewData["Title"] = "Iniciar sesión";
+    ViewData["BodyClass"] = "login";
+}
+<div class="lg-shell">
+    <section class="lg-left">
+        <a class="lg-logo" asp-controller="Home" asp-action="Index">
+            <img src="~/img/logo-login.png" alt="" />
+            <span>Conecta<b>RH</b></span>
+        </a>
+
+        <h1>Iniciar sesión</h1>
+        <p class="lg-sub">Ingresa tu contraseña para  continuar</p>
+
+        <partial name="_Mensajes" />
+
+        <form method="post" asp-controller="Cuenta" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" class="lg-form" novalidate>
+            <div class="lg-row">
+                <span class="lg-icon"><i class="bi bi-person-fill"></i></span>
+                <div class="lg-field">
+                    <label for="Correo">Correo electrónico</label>
+                    <input id="Correo" name="Correo" type="email" value="@Model.Correo" placeholder="Usuario@correo.com" autocomplete="email" required />
+                </div>
+            </div>
+
+            <div class="lg-row">
+                <span class="lg-icon"><i class="bi bi-envelope-fill"></i></span>
+                <div class="lg-field">
+                    <label for="Contrasena">Contraseña</label>
+                    <div class="pw-wrap">
+                        <input id="Contrasena" name="Contrasena" type="password" placeholder="Ingresa tu contraseña" autocomplete="current-password" required />
+                        <button type="button" class="pw-toggle" data-toggle-password="Contrasena" aria-label="Mostrar contraseña"><i class="bi bi-eye-slash-fill"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg-options">
+                <label class="lg-remember">
+                    <input type="checkbox" name="Recordarme" value="true" checked />
+                    <input type="hidden" name="Recordarme" value="false" />
+                    <i class="bi bi-check-circle-fill"></i><span>Recordarme</span>
+                </label>
+                <a asp-controller="Cuenta" asp-action="Recuperar">¿olvidastes tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="lg-submit">Iniciar sesión</button>
+        </form>
+
+        <p class="lg-foot">¿No tienes cuenta? <a asp-controller="Cuenta" asp-action="Registro">Registrase</a></p>
+    </section>
+
+    <aside class="lg-right">
+        <img src="~/img/login-ilustracion.png" alt="" />
+        <h2>Tu <span>futuro</span> laboral empieza aquí</h2>
+        <p>Conecta con empresas, accede a ofertas y has crecer tu carrera</p>
+    </aside>
+</div>

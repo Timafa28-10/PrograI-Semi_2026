@@ -1,0 +1,32 @@
+@model List<Postulacion>
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = "Postulaciones";
+    ViewData["Activo"] = "postulaciones";
+}
+<div class="nv-card">
+    <h2 class="nv-h2">Mis postulaciones</h2>
+    @if (Model.Any())
+    {
+        <table class="nv-table">
+            <thead><tr><th>Oferta</th><th>Empresa</th><th>Fecha</th><th>Estado</th><th>Observación</th></tr></thead>
+            <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Ofertas" asp-action="Detalle" asp-route-id="@p.IdOferta">@p.Oferta.Titulo</a></td>
+                    <td>@p.Oferta.Empresa.NombreEmpresa</td>
+                    <td>@p.FechaPostulacion.ToString("dd/MM/yyyy")</td>
+                    <td><span class="nv-estado e-@p.Estado.Replace(" ", "-").Replace("ó", "o")">@p.Estado</span></td>
+                    <td>@p.Observacion</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="nv-muted">Aún no te has postulado a ninguna oferta.</p>
+        <a class="nv-btn" asp-controller="Candidato" asp-action="Ofertas">Buscar empleos</a>
+    }
+</div>

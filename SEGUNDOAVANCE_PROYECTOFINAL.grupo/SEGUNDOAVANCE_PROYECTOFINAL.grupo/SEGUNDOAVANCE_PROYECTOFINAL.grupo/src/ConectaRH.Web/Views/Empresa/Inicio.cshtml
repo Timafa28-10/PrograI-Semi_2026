@@ -1,0 +1,49 @@
+@model List<OfertaEmpleo>
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = "Inicio";
+    ViewData["Activo"] = "inicio";
+    var empresa = (Empresa)ViewBag.Empresa;
+}
+<div class="nv-card">
+    <h2 class="nv-h2">Bienvenida, @empresa.NombreEmpresa</h2>
+    <p class="nv-muted">Publica ofertas de empleo y revisa a las personas que se postulan.</p>
+    <a class="nv-btn" asp-action="PublicarOferta">Publicar oferta</a>
+</div>
+
+<div class="nv-card">
+    <h2 class="nv-h2">Mis ofertas</h2>
+    @if (Model.Any())
+    {
+        <table class="nv-table">
+            <thead><tr><th>Título</th><th>Publicada</th><th>Cierre</th><th>Estado</th><th>Postulaciones</th><th></th></tr></thead>
+            <tbody>
+            @foreach (var o in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Ofertas" asp-action="Detalle" asp-route-id="@o.IdOferta">@o.Titulo</a></td>
+                    <td>@o.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                    <td>@(o.FechaCierre?.ToString("dd/MM/yyyy") ?? "—")</td>
+                    <td><span class="nv-estado e-@o.Estado">@o.Estado</span></td>
+                    <td><a asp-action="Postulaciones" asp-route-idOferta="@o.IdOferta">@o.Postulaciones.Count</a></td>
+                    <td>
+                        <form asp-action="CambiarEstadoOferta" method="post" class="nv-inline">
+                            <input type="hidden" name="id" value="@o.IdOferta" />
+                            <select name="estado" onchange="this.form.submit()">
+                                @foreach (var e in EstadosOferta.Todos)
+                                {
+                                    <option value="@e" selected="@(e == o.Estado)">@e</option>
+                                }
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="nv-muted">Aún no has publicado ofertas.</p>
+    }
+</div>

@@ -1,0 +1,106 @@
+@* Plantilla 12: Configuración de la empresa *@
+@model Empresa?
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Configuración de la empresa";
+    ViewData["Icono"] = "bi-gear-fill";
+    ViewData["Activo"] = "config";
+    ViewData["Variante"] = "b";
+    var tab = (string)ViewBag.Tab;
+    var editar = (bool)ViewBag.Editar;
+    var empresas = (List<Empresa>)ViewBag.Empresas;
+    var tabs = new[] { ("general", "Información general"), ("contacto", "Contacto"), ("ubicacion", "Ubicación"), ("notificaciones", "Notificaciones"), ("seguridad", "Seguridad") };
+}
+<section class="adm-panel adm-config">
+    <h2>Configuración de la empresa</h2>
+
+    @if (Model == null)
+    {
+        <p class="adm-empty">Todavía no hay empresas registradas.</p>
+    }
+    else
+    {
+        <div class="adm-config-grid">
+            <nav class="adm-config-nav">
+                @foreach (var (clave, texto) in tabs)
+                {
+                    <a class="@(tab == clave ? "active" : "")" asp-action="Configuracion" asp-route-id="@Model.IdEmpresa" asp-route-tab="@clave">@texto</a>
+                }
+            </nav>
+
+            <div class="adm-config-body">
+                @if (empresas.Count > 1)
+                {
+                    <form method="get" class="adm-select-empresa">
+                        <label>Empresa:
+                            <select name="id" onchange="this.form.submit()">
+                                @foreach (var e in empresas)
+                                {
+                                    <option value="@e.IdEmpresa" selected="@(e.IdEmpresa == Model.IdEmpresa)">@e.NombreEmpresa</option>
+                                }
+                            </select>
+                        </label>
+                    </form>
+                }
+
+                <div class="adm-config-card">
+                @if (tab == "general" && !editar)
+                {
+                    <h3>Información de la empresa</h3>
+                    <p class="adm-config-desc">Administra la información básica de tu empresa, la cual se mostrará en la plataforma y en la comunicación con tus usuarios.</p>
+                    <div class="adm-config-company">
+                        <span class="adm-config-ico"><i class="bi bi-buildings-fill"></i></span>
+                        <div>
+                            <strong>@Model.NombreEmpresa</strong>
+                            <p>@(string.IsNullOrWhiteSpace(Model.Sector) ? "Sector no indicado" : Model.Sector)</p>
+                            <p><i class="bi bi-geo-alt-fill"></i> @(string.IsNullOrWhiteSpace(Model.Direccion) ? "Ubicación no indicada" : Model.Direccion)</p>
+                            <a class="adm-btn" asp-action="Configuracion" asp-route-id="@Model.IdEmpresa" asp-route-editar="true">Editar información</a>
+                        </div>
+                    </div>
+                }
+                else if (tab == "general" && editar)
+                {
+                    <h3>Editar información</h3>
+                    <form method="post" asp-action="Configuracion" asp-route-id="@Model.IdEmpresa" class="adm-form">
+                        <label>Nombre de la empresa<input name="NombreEmpresa" value="@Model.NombreEmpresa" maxlength="150" required /></label>
+                        <label>Sector<input name="Sector" value="@Model.Sector" maxlength="100" /></label>
+                        <label>Dirección<input name="Direccion" value="@Model.Direccion" maxlength="200" /></label>
+                        <label>Teléfono<input name="Telefono" value="@Model.Telefono" maxlength="20" /></label>
+                        <label>Descripción<textarea name="Descripcion" rows="4">@Model.Descripcion</textarea></label>
+                        <div class="adm-form-actions">
+                            <button class="adm-btn" type="submit">Guardar</button>
+                            <a asp-action="Configuracion" asp-route-id="@Model.IdEmpresa">Cancelar</a>
+                        </div>
+                    </form>
+                }
+                else if (tab == "contacto")
+                {
+                    <h3>Contacto</h3>
+                    <p><i class="bi bi-envelope-fill"></i> @Model.Usuario.Correo</p>
+                    <p><i class="bi bi-telephone-fill"></i> @(string.IsNullOrWhiteSpace(Model.Telefono) ? "—" : Model.Telefono)</p>
+                }
+                else if (tab == "ubicacion")
+                {
+                    <h3>Ubicación</h3>
+                    <p><i class="bi bi-geo-alt-fill"></i> @(string.IsNullOrWhiteSpace(Model.Direccion) ? "—" : Model.Direccion)</p>
+                }
+                else if (tab == "notificaciones")
+                {
+                    <h3>Notificaciones</h3>
+                    <p class="adm-config-desc">Esta empresa no tiene notificaciones configuradas.</p>
+                }
+                else
+                {
+                    <h3>Seguridad</h3>
+                    <p>Estado de la cuenta:
+                        <span class="adm-pill @(Model.Usuario.Estado == EstadosUsuario.Activo ? "ok" : "warn")">@(Model.Usuario.Estado == EstadosUsuario.Activo ? "Activo" : "Inactivo")</span>
+                    </p>
+                    <form asp-action="CambiarEstadoUsuario" asp-route-id="@Model.IdUsuario" method="post">
+                        <button class="adm-btn">@(Model.Usuario.Estado == EstadosUsuario.Activo ? "Desactivar cuenta" : "Activar cuenta")</button>
+                    </form>
+                }
+                </div>
+            </div>
+        </div>
+    }
+</section>

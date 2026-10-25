@@ -1,0 +1,33 @@
+@model Candidato
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = "Inicio";
+    ViewData["Activo"] = "inicio";
+    var postulaciones = (List<Postulacion>)ViewBag.Postulaciones;
+    var recientes = (List<OfertaEmpleo>)ViewBag.Recientes;
+}
+<div class="nv-card">
+    <h2 class="nv-h2">Hola, @Model.NombreCompleto</h2>
+    <p class="nv-muted">Busca ofertas de empleo, postúlate y consulta el estado de tus postulaciones.</p>
+    <div class="nv-stats">
+        <a class="nv-stat" asp-action="Postulaciones"><strong>@postulaciones.Count</strong><span>Postulaciones</span></a>
+        <a class="nv-stat" asp-action="Postulaciones"><strong>@postulaciones.Count(p => p.Estado == EstadosPostulacion.Pendiente || p.Estado == EstadosPostulacion.EnRevision)</strong><span>En proceso</span></a>
+        <a class="nv-stat" asp-action="Postulaciones"><strong>@postulaciones.Count(p => p.Estado == EstadosPostulacion.Aceptada)</strong><span>Aceptadas</span></a>
+    </div>
+</div>
+
+<div class="nv-card">
+    <h2 class="nv-h2">Ofertas recientes</h2>
+    @foreach (var o in recientes)
+    {
+        <a class="nv-oferta" asp-controller="Ofertas" asp-action="Detalle" asp-route-id="@o.IdOferta">
+            <span class="nv-oferta-ico"><i class="bi bi-buildings-fill"></i></span>
+            <span><strong>@o.Titulo</strong><small>@o.Empresa.NombreEmpresa@(string.IsNullOrWhiteSpace(o.Ubicacion) ? "" : " · " + o.Ubicacion)</small></span>
+        </a>
+    }
+    @if (!recientes.Any())
+    {
+        <p class="nv-muted">Todavía no hay ofertas publicadas.</p>
+    }
+    <a class="nv-btn" asp-action="Ofertas">Ver todas las ofertas</a>
+</div>

@@ -1,0 +1,27 @@
+@* Plantilla 1 *@
+@{
+    ViewData["Title"] = "Inicio";
+    ViewData["BodyClass"] = "landing";
+}
+<header class="ln-header">
+    <a class="ln-logo" asp-controller="Home" asp-action="Index">
+        <img src="~/img/logo-landing.png" alt="" />
+        <span>Conecta<b>RH</b></span>
+    </a>
+    <nav class="ln-nav">
+        <a class="ln-login" asp-controller="Cuenta" asp-action="Login">Iniciar sesión</a>
+        <a class="ln-register" asp-controller="Cuenta" asp-action="Registro">Registrarse</a>
+    </nav>
+</header>
+
+<section class="ln-hero">
+    <div class="ln-text">
+        <h1>CONECTA PERSONAS<br />CON <span>OPORTUNIDADES</span></h1>
+        <p>Encuentra tu próxima oportunidad laboral<br />o encuentra el talento que tu empresa necesita.</p>
+        <div class="ln-buttons">
+            <a class="ln-btn ln-btn-fill" asp-controller="Cuenta" asp-action="Registro" asp-route-tipo="candidato">BUSCA EMPLEO</a>
+            <a class="ln-btn ln-btn-outline" asp-controller="Cuenta" asp-action="Registro" asp-route-tipo="empresa">SOY EMPRESA</a>
+        </div>
+    </div>
+    <div class="ln-photo"><img src="~/img/hero.jpg" alt="" /></div>
+</section>

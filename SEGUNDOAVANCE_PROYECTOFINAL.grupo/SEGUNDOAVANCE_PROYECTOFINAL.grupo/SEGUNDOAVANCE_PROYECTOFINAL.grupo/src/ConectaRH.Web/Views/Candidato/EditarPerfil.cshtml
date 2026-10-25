@@ -1,0 +1,20 @@
+@model DatosCandidatoModel
+@{
+    Layout = "_LayoutPerfil";
+    ViewData["Title"] = "Editar perfil";
+    ViewData["Activo"] = "perfil";
+}
+<h1 class="pf-title">Editar perfil</h1>
+<section class="pf-card pf-body">
+    <form method="post" asp-action="EditarPerfil" class="pf-form">
+        <label class="full">Nombre completo<input name="NombreCompleto" value="@Model.NombreCompleto" maxlength="150" required /></label>
+        <label>Teléfono<input name="Telefono" value="@Model.Telefono" maxlength="20" placeholder="+503 0000 0000" /></label>
+        <label>Fecha de nacimiento<input name="FechaNacimiento" type="date" value="@(Model.FechaNacimiento?.ToString("yyyy-MM-dd"))" /></label>
+        <label class="full">Ubicación<input name="Direccion" value="@Model.Direccion" maxlength="200" placeholder="San Salvador, El Salvador" /></label>
+        <label class="full">Resumen profesional<textarea name="ResumenProfesional" rows="5">@Model.ResumenProfesional</textarea></label>
+        <div class="pf-actions">
+            <button class="pf-edit solid" type="submit">Guardar cambios</button>
+            <a class="pf-edit" asp-action="Perfil">Cancelar</a>
+        </div>
+    </form>
+</section>

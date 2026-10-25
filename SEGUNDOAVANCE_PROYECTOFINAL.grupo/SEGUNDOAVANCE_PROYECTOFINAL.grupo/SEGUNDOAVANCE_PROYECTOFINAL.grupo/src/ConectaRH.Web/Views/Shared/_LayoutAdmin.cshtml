@@ -1,0 +1,64 @@
+@* Plantillas 6, 9, 10, 11 y 12: panel del administrador (menú morado).
+   ViewData["Variante"] = "a" (Plantilla 6: menú a toda la altura) o "b" (Plantillas 9-12: encabezado superior). *@
+@{
+    var activo = ViewData["Activo"] as string ?? "";
+    var variante = ViewData["Variante"] as string ?? "b";
+    var titulo = ViewData["Titulo"] as string ?? "";
+    var icono = ViewData["Icono"] as string ?? "bi-people-fill";
+    var nombre = User.Identity?.Name ?? "";
+    var iniciales = string.Concat(nombre.Split(' ', StringSplitOptions.RemoveEmptyEntries).Take(2).Select(p => char.ToUpper(p[0])));
+    var items = new List<(string Clave, string Texto, string Icono, string Accion)>
+    {
+        ("inicio", "Inicio", "bi-house-door-fill", "Inicio"),
+        ("usuarios", "Usuarios", "bi-person-fill", "Usuarios"),
+        ("clientes", "Gestión de clientes", "bi-people-fill", "Clientes"),
+        ("reportes", "Reportes", "bi-bar-chart-fill", "Reportes"),
+        ("config", "Configuración", "bi-gear-fill", "Configuracion")
+    };
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <partial name="_Head" />
+</head>
+<body class="adm adm-@variante">
+<div class="adm-shell">
+    <header class="adm-header">
+        <span class="adm-badge"><i class="bi @icono"></i></span>
+        <h1>@titulo</h1>
+        @if (variante == "a")
+        {
+            <div class="adm-header-right">
+                <i class="bi bi-bell-fill adm-bell"></i>
+                <details class="adm-userbox">
+                    <summary><span class="adm-avatar"><i class="bi bi-person-fill"></i></span><span>@nombre</span><i class="bi bi-chevron-down"></i></summary>
+                    <form asp-controller="Cuenta" asp-action="Salir" method="post"><button type="submit">Cerrar sesión</button></form>
+                </details>
+            </div>
+        }
+    </header>
+    <aside class="adm-side">
+        <a class="adm-brand" asp-controller="Admin" asp-action="Inicio"><i class="bi bi-people-fill"></i><span>Comunidad</span></a>
+        <nav class="adm-menu">
+            @foreach (var it in items)
+            {
+                <a class="adm-item @(activo == it.Clave ? "active" : "")" asp-controller="Admin" asp-action="@it.Accion">
+                    <i class="bi @it.Icono"></i><span>@it.Texto</span>
+                </a>
+            }
+        </nav>
+        @if (variante != "a")
+        {
+            <form class="adm-salir" asp-controller="Cuenta" asp-action="Salir" method="post">
+                <button type="submit"><i class="bi bi-box-arrow-left"></i><span>Cerrar sesión</span></button>
+            </form>
+        }
+    </aside>
+    <main class="adm-content">
+        <partial name="_Mensajes" />
+        @RenderBody()
+    </main>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

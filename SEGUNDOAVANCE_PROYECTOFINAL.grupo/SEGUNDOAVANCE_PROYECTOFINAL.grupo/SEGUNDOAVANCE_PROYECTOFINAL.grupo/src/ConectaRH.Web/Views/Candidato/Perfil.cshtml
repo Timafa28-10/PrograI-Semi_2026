@@ -1,0 +1,109 @@
+@* Plantilla 4 *@
+@model Candidato
+@{
+    Layout = "_LayoutPerfil";
+    ViewData["Title"] = "Mi perfil";
+    ViewData["Activo"] = "perfil";
+    var tab = (string)ViewBag.Tab;
+    string F(DateTime? d) => d.HasValue ? d.Value.ToString("dd/MM/yyyy") : "—";
+}
+<h1 class="pf-title">Mi perfil</h1>
+
+<section class="pf-card pf-head">
+    <div class="pf-head-top">
+        <span class="pf-avatar"><i class="bi bi-person-fill"></i></span>
+        <div class="pf-head-name">
+            <h2>@Model.NombreCompleto</h2>
+            <span>Candidato</span>
+        </div>
+        <a class="pf-edit" asp-controller="Candidato" asp-action="EditarPerfil">Editar perfil</a>
+    </div>
+    <nav class="pf-tabs">
+        <a class="@(tab == "datos" ? "active" : "")" asp-action="Perfil" asp-route-tab="datos">Datos personales</a>
+        <a class="@(tab == "formacion" ? "active" : "")" asp-action="Perfil" asp-route-tab="formacion">Formación académica</a>
+        <a class="@(tab == "experiencia" ? "active" : "")" asp-action="Perfil" asp-route-tab="experiencia">Experiencia laboral</a>
+    </nav>
+</section>
+
+<section class="pf-card pf-body">
+    @if (tab == "datos")
+    {
+        <dl class="pf-data">
+            <div><dt>Nombre completo</dt><dd>@Model.NombreCompleto</dd></div>
+            <div><dt>Correo electrónico</dt><dd>@Model.Usuario.Correo</dd></div>
+            <div><dt>Teléfono</dt><dd>@(string.IsNullOrWhiteSpace(Model.Telefono) ? "—" : Model.Telefono)</dd></div>
+            <div><dt>Ubicación</dt><dd>@(string.IsNullOrWhiteSpace(Model.Direccion) ? "—" : Model.Direccion)</dd></div>
+            <div><dt>Fecha de nacimiento</dt><dd>@F(Model.FechaNacimiento)</dd></div>
+            <div><dt>Resumen profesional</dt><dd>@(string.IsNullOrWhiteSpace(Model.ResumenProfesional) ? "—" : Model.ResumenProfesional)</dd></div>
+        </dl>
+    }
+    else if (tab == "formacion")
+    {
+        <ul class="pf-list">
+            @foreach (var f in Model.Formaciones.OrderByDescending(x => x.FechaInicio))
+            {
+                <li>
+                    <div>
+                        <strong>@f.NivelAcademico</strong>
+                        <span>@f.Institucion</span>
+                        <small>@F(f.FechaInicio) – @(f.FechaFin.HasValue ? F(f.FechaFin) : "Actualidad")</small>
+                    </div>
+                    <form asp-action="EliminarFormacion" asp-route-id="@f.IdFormacion" method="post">
+                        <button class="pf-del" title="Eliminar" onclick="return confirm('¿Eliminar esta formación?')"><i class="bi bi-trash3"></i></button>
+                    </form>
+                </li>
+            }
+            @if (!Model.Formaciones.Any())
+            {
+                <li class="pf-empty">Aún no has registrado formación académica.</li>
+            }
+        </ul>
+        <details class="pf-add">
+            <summary><i class="bi bi-plus-lg"></i> Agregar formación</summary>
+            <form asp-action="AgregarFormacion" method="post" class="pf-form">
+                <label>Nivel académico o título<input name="NivelAcademico" maxlength="100" required /></label>
+                <label>Institución<input name="Institucion" maxlength="150" required /></label>
+                <label>Fecha de inicio<input name="FechaInicio" type="date" /></label>
+                <label>Fecha de fin<input name="FechaFin" type="date" /></label>
+                <button class="pf-edit" type="submit">Guardar</button>
+            </form>
+        </details>
+    }
+    else
+    {
+        <ul class="pf-list">
+            @foreach (var x in Model.Experiencias.OrderByDescending(e => e.FechaInicio))
+            {
+                <li>
+                    <div>
+                        <strong>@x.Puesto</strong>
+                        <span>@x.EmpresaAnterior</span>
+                        <small>@F(x.FechaInicio) – @(x.FechaFin.HasValue ? F(x.FechaFin) : "Actualidad")</small>
+                        @if (!string.IsNullOrWhiteSpace(x.Descripcion))
+                        {
+                            <p>@x.Descripcion</p>
+                        }
+                    </div>
+                    <form asp-action="EliminarExperiencia" asp-route-id="@x.IdExperiencia" method="post">
+                        <button class="pf-del" title="Eliminar" onclick="return confirm('¿Eliminar esta experiencia?')"><i class="bi bi-trash3"></i></button>
+                    </form>
+                </li>
+            }
+            @if (!Model.Experiencias.Any())
+            {
+                <li class="pf-empty">Aún no has registrado experiencia laboral.</li>
+            }
+        </ul>
+        <details class="pf-add">
+            <summary><i class="bi bi-plus-lg"></i> Agregar experiencia</summary>
+            <form asp-action="AgregarExperiencia" method="post" class="pf-form">
+                <label>Puesto<input name="Puesto" maxlength="120" required /></label>
+                <label>Empresa<input name="EmpresaAnterior" maxlength="150" required /></label>
+                <label>Fecha de inicio<input name="FechaInicio" type="date" /></label>
+                <label>Fecha de fin (vacío si es empleo actual)<input name="FechaFin" type="date" /></label>
+                <label class="full">Descripción de funciones<textarea name="Descripcion" rows="3"></textarea></label>
+                <button class="pf-edit" type="submit">Guardar</button>
+            </form>
+        </details>
+    }
+</section>

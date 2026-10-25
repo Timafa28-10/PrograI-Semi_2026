@@ -1,0 +1,72 @@
+@model List<Postulacion>
+@{
+    Layout = "_LayoutNavy";
+    ViewData["Title"] = "Postulaciones";
+    ViewData["Activo"] = "postulaciones";
+    var ofertas = (List<OfertaEmpleo>)ViewBag.Ofertas;
+    int? idOferta = (int?)ViewBag.IdOferta;
+}
+<div class="nv-card">
+    <h2 class="nv-h2">Revisar candidatos</h2>
+    <form method="get" class="nv-search">
+        <select name="idOferta" onchange="this.form.submit()">
+            <option value="">Todas las ofertas</option>
+            @foreach (var o in ofertas)
+            {
+                <option value="@o.IdOferta" selected="@(idOferta == o.IdOferta)">@o.Titulo</option>
+            }
+        </select>
+    </form>
+
+    @foreach (var p in Model)
+    {
+        var c = p.Candidato;
+        <article class="nv-post">
+            <header>
+                <div>
+                    <strong>@c.NombreCompleto</strong>
+                    <small>@c.Usuario.Correo@(string.IsNullOrWhiteSpace(c.Telefono) ? "" : " · " + c.Telefono)</small>
+                    <small>Oferta: @p.Oferta.Titulo · @p.FechaPostulacion.ToString("dd/MM/yyyy HH:mm")</small>
+                </div>
+                <span class="nv-estado e-@p.Estado.Replace(" ", "-").Replace("ó", "o")">@p.Estado</span>
+            </header>
+
+            @if (!string.IsNullOrWhiteSpace(c.ResumenProfesional))
+            {
+                <p class="nv-post-res">@c.ResumenProfesional</p>
+            }
+            @if (c.Formaciones.Any())
+            {
+                <p class="nv-post-line"><b>Formación:</b> @string.Join("; ", c.Formaciones.Select(f => f.NivelAcademico + " – " + f.Institucion))</p>
+            }
+            @if (c.Experiencias.Any())
+            {
+                <p class="nv-post-line"><b>Experiencia:</b> @string.Join("; ", c.Experiencias.Select(x => x.Puesto + " en " + x.EmpresaAnterior))</p>
+            }
+            @if (!string.IsNullOrWhiteSpace(p.Observacion))
+            {
+                <p class="nv-post-line"><b>Observación / mensaje:</b> @p.Observacion</p>
+            }
+
+            <footer>
+                <a class="nv-btn nv-btn-sm" asp-action="DescargarCv" asp-route-id="@p.IdPostulacion"><i class="bi bi-download"></i> Descargar CV</a>
+                <form asp-action="RevisarPostulacion" method="post" class="nv-inline">
+                    <input type="hidden" name="id" value="@p.IdPostulacion" />
+                    <input type="hidden" name="idOferta" value="@idOferta" />
+                    <select name="estado">
+                        @foreach (var e in EstadosPostulacion.Todos)
+                        {
+                            <option value="@e" selected="@(e == p.Estado)">@e</option>
+                        }
+                    </select>
+                    <input name="observacion" maxlength="500" placeholder="Observación (opcional)" />
+                    <button type="submit" class="nv-btn nv-btn-sm">Guardar</button>
+                </form>
+            </footer>
+        </article>
+    }
+    @if (!Model.Any())
+    {
+        <p class="nv-muted">Todavía no hay postulaciones.</p>
+    }
+</div>

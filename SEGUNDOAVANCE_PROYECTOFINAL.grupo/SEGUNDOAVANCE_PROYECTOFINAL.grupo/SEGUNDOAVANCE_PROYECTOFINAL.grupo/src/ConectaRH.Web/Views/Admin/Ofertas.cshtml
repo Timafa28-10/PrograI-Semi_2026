@@ -1,0 +1,44 @@
+@* Gestionar Ofertas (Lógica de funcionamiento: Administrador) *@
+@model List<OfertaEmpleo>
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Titulo"] = "Gestionar ofertas";
+    ViewData["Icono"] = "bi-briefcase-fill";
+    ViewData["Activo"] = "inicio";
+    ViewData["Variante"] = "b";
+}
+<section class="adm-panel">
+    <h2>Ofertas de empleo</h2>
+    <form method="get" class="adm-searchrow">
+        <label class="adm-search"><i class="bi bi-search"></i><input name="q" value="@ViewBag.Q" placeholder="Buscar oferta o empresa..." /></label>
+    </form>
+    <table class="adm-table">
+        <thead><tr><th>Oferta</th><th>Empresa</th><th>Publicada</th><th>Postulaciones</th><th>Estado</th></tr></thead>
+        <tbody>
+        @foreach (var o in Model)
+        {
+            <tr>
+                <td><strong>@o.Titulo</strong></td>
+                <td>@o.Empresa.NombreEmpresa</td>
+                <td>@o.FechaPublicacion.ToString("dd/MM/yyyy")</td>
+                <td>@o.Postulaciones.Count</td>
+                <td>
+                    <form asp-action="CambiarEstadoOferta" method="post" class="adm-inline">
+                        <input type="hidden" name="id" value="@o.IdOferta" />
+                        <select name="estado" onchange="this.form.submit()">
+                            @foreach (var e in EstadosOferta.Todos)
+                            {
+                                <option value="@e" selected="@(e == o.Estado)">@e</option>
+                            }
+                        </select>
+                    </form>
+                </td>
+            </tr>
+        }
+        @if (!Model.Any())
+        {
+            <tr><td colspan="5" class="adm-empty">No hay ofertas registradas.</td></tr>
+        }
+        </tbody>
+    </table>
+</section>
