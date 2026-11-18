@@ -3,6 +3,7 @@ namespace Webapp.Controllers.Models
 {
     public class MyDbContext : DbContext
     {
+        public DbSet<webapp.Models.Materia> Materia { get; set; } = default!;
         public MyDbContext() { }
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
         public DbSet<Alumno> Alumnos { get; set; }
